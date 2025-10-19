@@ -1,14 +1,15 @@
 import redis, json, hashlib
 
+# 池化redis connection 
+REDIS_POOL = redis.ConnectionPool(host='127.0.0.1', port=6379, encoding='utf-8', max_connections=50)
+TASK_QUEUE = 'spider_task_list'
+RESULT_QUEUE = 'spider_result_dict'
+
+
 def get_task():
-    REDIS_CONN_PARAMS = {
-        'host': '127.0.0.1',
-        # 'password': 'qwe123',
-        'port': 6379,
-        'encoding': 'utf-8'
-    }
-    conn = redis.Redis(**REDIS_CONN_PARAMS)
-    data = conn.brpop('spider_task_list', timeout=10)
+    
+    conn = redis.Redis(connection_pool=REDIS_POOL)
+    data = conn.brpop(TASK_QUEUE, timeout=10)
     if not data:
         return
     # block popping from the right of the list, wait for 10s, in case consume too much cpu
@@ -18,14 +19,9 @@ def get_task():
     return json.loads(data[1].decode('utf-8'))
 
 def set_result(tid: int, sign: str):
-    REDIS_CONN_PARAMS = {
-        'host': '127.0.0.1',
-        # 'password': 'qwe123',
-        'port': 6379,
-        'encoding': 'utf-8'
-    }
-    conn = redis.Redis(**REDIS_CONN_PARAMS) 
-    conn.hset('spider_result_dict', tid, sign)
+    
+    conn = redis.Redis(connection_pool=REDIS_POOL) 
+    conn.hset(RESULT_QUEUE, tid, sign)
     
 def run():
     # infinite loop to catch the incoming task
