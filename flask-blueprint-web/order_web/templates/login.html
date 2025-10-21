@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask-Web</title>
+    <link rel="stylesheet" href="static/bootstrap-5.3.8-dist/css/bootstrap.css">
+    <style>
+        .login-box{
+                margin-top: 100px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 450px;
+                border: 1px solid #ddd;
+                padding: 20px 30px 30px 30px; 
+                /* #top,right, bottom, left */
+        }
+        .login-box h2{
+            text-align: center;
+        }
+
+        .login-box select{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="login-box">
+    <h2>Get started</h2>
+    <form action="/login" method="post">
+    <!-- form 提交的位置[btn的action], default value will be the current url-->
+    <!-- method: 同一页面下，页面展示GET, 和提交行为POST分开-->
+    
+    <select class="form-select" name='role' aria-label="Default select example">
+        <option selected>Choose your role</option>
+        <option value="1">Client</option>
+        <option value="2">Administrator</option>
+    </select>
+    
+    <div class="mb-3">
+        <label for="exampleInputUsrName" class="form-label">User name</label>
+        <input type="text" class="form-control" name="usr_name" placeholder="user name">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" name="pwd" placeholder="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <span style="color: red;">{{ error }}</span>
+    </form>
+
+
+
+</div>
+
+    <script src="/static/jquery-3.7.1.min.js"></script>
+    <script src="/static/bootstrap-5.3.8-dist/js/bootstrap.js"></script>
+</body>
+</html>
