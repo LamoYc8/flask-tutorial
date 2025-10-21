@@ -27,3 +27,13 @@ def fetch_one(sql, params) -> dict:
     conn.close() # 不是关闭conn, 交回给pool
 
     return result 
+
+def fetch_all(sql, params) -> dict:
+    conn = POOL.connection()
+    cursor = conn.cursor(cursor=cursors.DictCursor)
+    cursor.execute(sql, params)
+    result = cursor.fetchall()
+    cursor.close()
+    conn.close() # 不是关闭conn, 交回给pool
+
+    return result

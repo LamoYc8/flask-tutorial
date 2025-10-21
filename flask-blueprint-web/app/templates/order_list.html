@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask-Web</title>
+</head>
+<body>
+   <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Order ID</th>
+        <th scope="col">URL</th>
+        <th scope="col">Count</th>
+        <th scope="col">Status</th>
+        <th scope="col">User ID</th>
+        </tr>
+    </thead>
+  <tbody>
+    {% for item in list %}
+    <tr>
+      <td>{{item.id}}</td>
+      <td>{{item.url}}</td>
+      <td>{{item.count}}</td>
+      <td>{{item.status}}</td>
+      <td>{{item.usr_id}}</td>
+    </tr>
+    
+    {% endfor %}
+  </tbody>
+</table> 
+</body>
+</html>
