@@ -15,6 +15,7 @@ def usr_login():
         # 执行登录页面渲染
         return render_template('login.html') # under templates folder 
 
+    # Args from html form submission
     role = request.form.get('role')
     usr_name = request.form.get('usr_name')
     pwd = request.form.get('pwd')

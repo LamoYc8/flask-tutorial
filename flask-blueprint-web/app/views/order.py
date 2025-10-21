@@ -8,14 +8,8 @@ od = Blueprint('order', __name__, template_folder=None, static_folder=None)
 
 @od.route('/order/list')
 def get_order_entity():
-    # 1. 读取cookie and decrypt session inform
-    usr_inform = session.get('usr_inform')
-    #print(usr_inform, type(usr_inform))
-
-    # No session no login inform, 
-    # only allowed to view this page once the user has logged in 
-    if not usr_inform:
-        return redirect('/login')
+    # 统一由interceptor限制访问
+    # 必须登录后查看    
     return '订单明细'
 
 
