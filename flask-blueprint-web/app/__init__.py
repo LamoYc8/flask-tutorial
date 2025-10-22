@@ -18,7 +18,11 @@ def auth():
     
     return redirect('/login')
 
-
+# fetch client real name based on the session inform 
+# provide the func for html file utilization
+def fetch_client_name():
+    client_inform = session.get('usr_inform')
+    return client_inform['real_name']
 
 
 def create_app():
@@ -33,4 +37,9 @@ def create_app():
     
     # Interceptor feature starts here
     app.before_request(auth)
+
+    # func inject to be globalized to the every html file 
+    app.template_global()(fetch_client_name)
+
+
     return app 

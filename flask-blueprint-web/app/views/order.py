@@ -34,9 +34,9 @@ def get_order_list():
 
     real_name = usr_inform['real_name']
     # display the query result 
-    return render_template('order_list.html', list=order_list, status_dict=status, client_name=real_name)
+    return render_template('order_list.html', list=order_list, status_dict=status)
 
 
-@od.route('/order', methods=['POST'])
+@od.route('/order/create', methods=['GET'])
 def create_order():
-    return 'order is placed!'
+    return render_template('order_create.html')

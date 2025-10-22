@@ -1,80 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout.html' %}
+{% block body %}
+<!-- create order btn-->
+<div>
+    <a class="btn btn-info" style="margin-bottom: 10px;" href="/order/create" role="button">Create</a>
+</div>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">URL</th>
+            <th scope="col">Count</th>
+            <th scope="col">Status</th>
+            <th scope="col">User name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in list %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.url}}</td>
+            <td>{{item.count}}</td>
+            <td><span class="badge text-bg-{{ status_dict[item.status].cls }}">{{ status_dict[item.status].text
+                    }}</span></td>
+            <td>{{item.real_name}}</td>
+        </tr>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask-Web</title>
-    <link rel="stylesheet" href="/static/bootstrap-5.3.8-dist/css/bootstrap.css">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Ordering Service</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Management</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Orders</a></li>
-                </ul>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">{{client_name}}
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
+        {% endfor %}
+    </tbody>
+</table>
 
 
-
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">URL</th>
-                    <th scope="col">Count</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">User name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in list %}
-                <tr>
-                    <td>{{item.id}}</td>
-                    <td>{{item.url}}</td>
-                    <td>{{item.count}}</td>
-                    <td><span class="badge text-bg-{{ status_dict[item.status].cls }}">{{ status_dict[item.status].text }}</span></td>
-                    <td>{{item.real_name}}</td>
-                </tr>
-
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <script src="/static/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <!-- boot5.3 dropdown feature depends on popper.js, and must be loaded before bootstrap itself-->
-    <script src="/static/bootstrap-5.3.8-dist/js/bootstrap.js"></script>
-
-</body>
-
-</html>
+{% endblock %}
