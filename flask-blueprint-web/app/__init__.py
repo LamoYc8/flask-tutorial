@@ -1,7 +1,7 @@
 from flask import Flask, request, session, redirect
 import os
 
-def auth():
+def _auth():
     print("Interceptor")
 
     # Don't intercept js files
@@ -20,7 +20,7 @@ def auth():
 
 # fetch client real name based on the session inform 
 # provide the func for html file utilization
-def fetch_client_name():
+def _fetch_client_name():
     client_inform = session.get('usr_inform')
     return client_inform['real_name']
 
@@ -37,10 +37,10 @@ def create_app():
     app.register_blueprint(order.od)
     
     # Interceptor feature starts here
-    app.before_request(auth)
+    app.before_request(_auth)
 
     # func inject to be globalized to the every html file 
-    app.template_global()(fetch_client_name)
+    app.template_global()(_fetch_client_name)
 
 
     return app 

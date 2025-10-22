@@ -4,7 +4,7 @@ import pymysql
 from ..utils import db
 
 # Defining a blueprint for login function 
-usrLogin = Blueprint('usrLogin', __name__, template_folder=None, static_folder=None)
+usrLogin = Blueprint('usrLogin', __name__, template_folder='..templates', static_folder='..static')
 # first parameter: the name give to the blueprint, will used for internal routing
 # Blueprint package, locate the root_path for the blueprint
 

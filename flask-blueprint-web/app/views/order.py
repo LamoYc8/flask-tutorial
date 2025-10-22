@@ -2,7 +2,7 @@ from flask import Blueprint, session, redirect, render_template, request
 from ..utils import db, redis_cache
 
 # Defining a blueprint for login function 
-od = Blueprint('order', __name__, template_folder=None, static_folder=None)
+od = Blueprint('order', __name__, template_folder='..templates', static_folder='..static')
 # first parameter: the name give to the blueprint, will used for internal routing
 # Blueprint package, locate the root_path for the blueprint
 
