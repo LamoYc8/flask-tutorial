@@ -13,17 +13,28 @@ def get_order_list():
     usr_inform = session.get('usr_inform')
 
     role = usr_inform['role'] # 1: client; 2: admin
-    print(usr_inform)
+    #print(usr_inform)
     if role == 1:
         # select * from order where usr_id=%s
         id = usr_inform['id']
-        order_list = db.fetch_all("select * from `order` where usr_id=%s", [id]) # order 和程序内重名有冲突
+        order_list = db.fetch_all("select * from `order` left join usr_inform on `order`.usr_id = usr_inform.id where usr_id=%s", [id]) # order 和程序内重名有冲突
     else:
         # select * from order 
-        order_list= db.fetch_all('select * from `order`', [])
+        order_list= db.fetch_all("select * from `order` left join usr_inform on `order`.usr_id = usr_inform.id", [])
     
+    print(order_list)
+    # 优化表格显示，赋予meaning, instead of numeric items
+    # based on the status presents different color theme
+    status = {
+        1: {'text':'Waiting', 'cls': 'primary'},
+        2: {'text':'In process', 'cls': 'info'},
+        3: {'text':'Completed', 'cls': 'success'},
+        4: {'text':'Failed', 'cls': 'danger'},
+    }
+
+    real_name = usr_inform['real_name']
     # display the query result 
-    return render_template('order_list.html', list=order_list)
+    return render_template('order_list.html', list=order_list, status_dict=status, client_name=real_name)
 
 
 @od.route('/order', methods=['POST'])
