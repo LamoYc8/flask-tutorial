@@ -1,5 +1,5 @@
-from flask import Blueprint, session, redirect, render_template
-from ..utils import db
+from flask import Blueprint, session, redirect, render_template, request
+from ..utils import db, redis_cache
 
 # Defining a blueprint for login function 
 od = Blueprint('order', __name__, template_folder=None, static_folder=None)
@@ -37,6 +37,26 @@ def get_order_list():
     return render_template('order_list.html', list=order_list, status_dict=status)
 
 
-@od.route('/order/create', methods=['GET'])
+@od.route('/order/create', methods=['GET', 'POST'])
 def create_order():
-    return render_template('order_create.html')
+    if request.method =='GET':
+        return render_template('order_create.html')
+
+    usr_dict = session.get('usr_inform')
+
+    # obtain data from 'POST' method
+    url = request.form.get('url')
+    count = request.form.get('count')
+
+
+    # create new entity in db
+    sql = 'insert into `order`(url, count, status, usr_id)values(%s, %s, 1, %s)'
+    params = [url, count, usr_dict['id']]
+    order_id = db.create_one(sql, params) # alternative: 自行创建id,利用timestamp,加入进db & redis 
+    
+    
+    # queue the task to Redis 
+    redis_cache.append(order_id)
+
+
+    return redirect('/order/list')

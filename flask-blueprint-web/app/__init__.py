@@ -27,8 +27,9 @@ def fetch_client_name():
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = os.urandom(24)
     # Generate a random key to encrypt the session inform
+    # app.secret_key = os.urandom(24)
+    app.secret_key = 'my_super_secret_key_123456' # 开发用这个，否则每次重启key都会改变session 
 
     from .views import login, order
 

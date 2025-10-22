@@ -7,14 +7,14 @@
             <h4 class="card-header">创建新订单</h4>
             <div class="card-body">
                 <h6 class="card-title">新建任务信息</h6>
-                <form class="row g-3">
+                <form class="row g-3" method="post">
                     <div class="col-auto">
                         <label class="visually-hidden">Web URL</label>
-                        <input type="url" class="form-control" placeholder="http://...">
+                        <input type="url" class="form-control" name="url" placeholder="http://..." />
                     </div>
                     <div class="col-auto">
                         <label class="visually-hidden">执行次数</label>
-                        <input class="form-control" type="number" name="count" placeholder="输入任务次数">
+                        <input class="form-control" type="number" name="count" placeholder="输入任务次数" />
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Submit</button>

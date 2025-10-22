@@ -37,3 +37,18 @@ def fetch_all(sql, params) -> dict:
     conn.close() # 不是关闭conn, 交回给pool
 
     return result
+    
+
+def create_one(sql, params) -> int:
+    conn = POOL.connection()
+    cursor = conn.cursor(cursor=cursors.DictCursor)
+    cursor.execute(sql, params)
+
+    # create, update, delete operation need commit
+    conn.commit()
+    
+    cursor.close()
+    conn.close() # 不是关闭conn, 交回给pool
+
+    # return the auto-increased id 
+    return cursor.lastrowid
